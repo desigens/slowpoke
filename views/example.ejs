@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	
+	<!-- Отпределить, есть ли JS, нужно как можно раньше, до тегов стилей. -->
+	<script type="text/javascript">
+		document.documentElement.className = 'js';
+	</script>
+	
+	<style type="text/css">
+		/* Для отключенного JS */
+		.no-js body,
+		/* Для включенного JS, картинка будет загружена асинхронна */
+		body.a {
+			background: url(/image/3000) no-repeat;
+		}
+	</style>
+
+</head>
+<body onload="end()" class="async-resources">
+
+	<pre>
+body {
+	background: url(image.jpg) no-repeat;
+}
+	</pre>
+
+	<div id="a">null</div>
+	
+	<p>
+		Проблема: при загрузке картинок с других сервисов, они могут блокировать готовность страницы,
+		если отвечают очень долго.
+	</p>
+	<p>
+		Для асинхронной загрузки таких картинок можно использовать css-селектор и setTimeout.
+	</p>
+	<p>
+		Другой вариант асинхронной вставки тега style не годится, т.к. катастрофически медленно работает в IE8 
+		и требует большего количества кода, если будет рассчитан на отключеный JS.
+	</p>
+
+	<script type="text/javascript">
+		
+		// Для проверки в IE8
+		Date.now = Date.now || function() { return +new Date; }; 
+		
+		var t = Date.now();
+		var out = document.getElementById('a')
+		
+		function end () {
+			out.innerHTML = (Date.now() - t);
+		}
+		
+		// Если setTimeout не использовать, то событие onload будет ожидать загрузки картинки.
+		setTimeout(function () {
+			document.body.className = 'a';
+		}, 0);
+	</script>
+</body>
+</html>

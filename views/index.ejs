@@ -5,7 +5,21 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
+  	<img src="images/image.jpg" width="200"/>
+
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Test how your site works with slow images.</p>
+	<p>
+		<a href="http://<%= domain %>/image">http://<%= domain %>/image</a>
+		will return image after 3 seconds (default).
+	</p>
+	<p>
+		<a href="http://<%= domain %>/image/10000">http://<%= domain %>/image/<b>10000</b></a>
+		will return image after 10 seconds.
+	</p>
+	<p>
+		<a href="/example">Example</a> (rus.)
+	</p>
   </body>
 </html>
